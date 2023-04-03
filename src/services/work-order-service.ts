@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import apiClient from "./api-client";
 
 
 export interface WorkOrder {
@@ -18,10 +18,22 @@ export interface WorkOrder {
   is_emergency: boolean
 }
 
+export interface WorkOrderListItem {
+  id: number
+  site: string
+  status: string
+  arrival: string
+  est_completion: string
+  assigned_to: {
+    id: number
+    last_name: string
+  }
+}
+
 class WorkOrderService {
   getAllWorkOrders() {
     const controller = new AbortController()
-    const request = apiClient.get<WorkOrder[]>('work-orders/', { signal: controller.signal })
+    const request = apiClient.get<WorkOrderListItem[]>('work-orders/', { signal: controller.signal })
     return { request, cancel: () => controller.abort() }
   }
 }

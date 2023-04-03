@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { CanceledError } from '../services/apiClient'
-import workOrderService, { WorkOrder } from '../services/WorkOrderService'
+import { CanceledError } from '../services/api-client'
+import workOrderService, { WorkOrderListItem } from '../services/work-order-service'
 
 const WorkOrderList = () => {
-  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([])
+  const [workOrders, setWorkOrders] = useState<WorkOrderListItem[]>([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -27,7 +27,7 @@ const WorkOrderList = () => {
       <h1>WorkOrderList</h1>
       <ul>
         {workOrders.map((workOrder) => (
-          <li key={workOrder.id}>{workOrder.site}</li>
+          <li className="mb-3" key={workOrder.id}><strong>{workOrder.site}</strong><br />Assigned to: {workOrder.assigned_to.last_name}</li>
         ))}
       </ul>
     </>
