@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { CanceledError } from '../services/api-client'
 import workOrderService, { WorkOrderListItem } from '../services/work-order-service'
 
@@ -24,10 +25,11 @@ const WorkOrderList = () => {
 
   return (
     <>
-      <h1>WorkOrderList</h1>
       <ul>
         {workOrders.map((workOrder) => (
-          <li className="mb-3" key={workOrder.id}><strong>{workOrder.site}</strong><br />Assigned to: {workOrder.assigned_to.last_name}</li>
+          <li className="mb-3" key={workOrder.id}>
+            <Link to={"/work-orders/" + workOrder.id}><strong>{workOrder.site}</strong><br />Assigned to: {workOrder.assigned_to.last_name}</Link>
+          </li>
         ))}
       </ul>
     </>

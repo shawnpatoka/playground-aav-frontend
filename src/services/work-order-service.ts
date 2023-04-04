@@ -16,6 +16,10 @@ export interface WorkOrder {
   arrival: string
   est_completion: string
   is_emergency: boolean
+  assigned_to: {
+    id: number
+    last_name: string
+  }
 }
 
 export interface WorkOrderListItem {
@@ -34,6 +38,11 @@ class WorkOrderService {
   getAllWorkOrders() {
     const controller = new AbortController()
     const request = apiClient.get<WorkOrderListItem[]>('work-orders/', { signal: controller.signal })
+    return { request, cancel: () => controller.abort() }
+  }
+  getWorkOrderDetail(id: number) {
+    const controller = new AbortController()
+    const request = apiClient.get<WorkOrder>(`work-orders/${id}`, { signal: controller.signal })
     return { request, cancel: () => controller.abort() }
   }
 }
